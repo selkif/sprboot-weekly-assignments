@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post Detail</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+<h2>Post Detail</h2>
+
+ID: <input type="text" id="input_id" /><br/>
+Title: <input type="text" id="input_title" /><br/>
+Content: <input type="text" id="input_content" /><br/>
+Author: <input type="text" id="input_author" /><br/>
+
+<button onclick="loadPost()">Load</button>
+<button onclick="updatePost()">Update</button>
+<button onclick="deletePost()">Delete</button>
+
+<script>
+    function loadPost() {
+        $.ajax({
+            url: "/api/post/detail",
+            method: "GET",
+            data: { id: $("#input_id").val() },
+            success: function (data) {
+                if (data) {
+                    $("#input_title").val(data.title);
+                    $("#input_content").val(data.content);
+                    $("#input_author").val(data.author);
+                } else {
+                    alert("Post not found");
+                }
+            },
+            error: function (err) {
+                alert("Error: " + JSON.stringify(err));
+            }
+        });
+    }
+
+    function updatePost() {
+        $.ajax({
+            url: "/api/post/update",
+            method: "GET",
+            data: {
+                id: $("#input_id").val(),
+                title: $("#input_title").val(),
+                content: $("#input_content").val(),
+                author: $("#input_author").val()
+            },
+            success: function (data) {
+                alert("Updated: " + JSON.stringify(data));
+            },
+            error: function (err) {
+                alert("Error: " + JSON.stringify(err));
+            }
+        });
+    }
+
+    function deletePost() {
+        $.ajax({
+            url: "/api/post/delete",
+            method: "GET",
+            data: { id: $("#input_id").val() },
+            success: function (data) {
+                alert("Deleted: " + JSON.stringify(data));
+            },
+            error: function (err) {
+                alert("Error: " + JSON.stringify(err));
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

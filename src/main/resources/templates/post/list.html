@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post List</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+</head>
+<body>
+
+<h2>Post List</h2>
+
+<ul id="post_list"></ul>
+
+<script>
+    $.ajax({
+        url: "/api/post/list",
+        method: "GET",
+        success: function (data) {
+            data.forEach(function (post) {
+                $("#post_list").append(
+                    `<li>ID: ${post.id} | Title: ${post.title} | Author: ${post.author}</li>`
+                );
+            });
+        },
+        error: function (err) {
+            alert("Error: " + JSON.stringify(err));
+        }
+    });
+</script>
+
+</body>
+</html>
