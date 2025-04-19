@@ -2,35 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create Post</title>
+    <title>create board</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
 
-<h2>Create Post</h2>
+Create Board
+<br/>
 
-Title: <input type="text" id="input_title" /><br/>
-Content: <input type="text" id="input_content" /><br/>
-Author: <input type="text" id="input_author" /><br/>
+title :
+<input type="text" id="input_title" /><br/>
+content :
+<input type="text" id="input_content" /><br/>
+author :
+<input type="text" id="input_author" /><br/>
 
-<button onclick="createPost()">Create</button>
+<button onclick="create_board()">CREATE</button>
 
 <script>
-    function createPost() {
+    function create_board(){
         $.ajax({
-            url: "/api/post/create",
+            url: "/api/board/create",
             method: "GET",
             data: {
-                title: $("#input_title").val(),
-                content: $("#input_content").val(),
-                author: $("#input_author").val()
+                title : $("#input_title").val()
+                , content : $("#input_content").val()
+                , author : $("#input_author").val()
             },
-            success: function (data) {
-                alert("Post created! " + JSON.stringify(data));
+            success: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
             },
-            error: function (err) {
-                alert("Error: " + JSON.stringify(err));
-            }
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
         });
     }
 </script>

@@ -2,76 +2,72 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Post Detail</title>
+    <title>detail board</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
-
-<h2>Post Detail</h2>
-
-ID: <input type="text" id="input_id" /><br/>
-Title: <input type="text" id="input_title" /><br/>
-Content: <input type="text" id="input_content" /><br/>
-Author: <input type="text" id="input_author" /><br/>
-
-<button onclick="loadPost()">Load</button>
-<button onclick="updatePost()">Update</button>
-<button onclick="deletePost()">Delete</button>
+DETAIL
+id :
+<input id="input_id" type="text" /> <br />
+title : <input id="input_title" type="text" /> <br />
+content : <input id="input_content" type="text" /> <br />
+author : <input id="input_author" type="text" /> <br />
+<button onclick="detail_board()">detail</button>
+<button onclick="update_board()">update</button>
+<button onclick="delete_board()">delete</button>
 
 <script>
-    function loadPost() {
+    function detail_board(){
         $.ajax({
-            url: "/api/post/detail",
-            method: "GET",
-            data: { id: $("#input_id").val() },
-            success: function (data) {
-                if (data) {
-                    $("#input_title").val(data.title);
-                    $("#input_content").val(data.content);
-                    $("#input_author").val(data.author);
-                } else {
-                    alert("Post not found");
-                }
-            },
-            error: function (err) {
-                alert("Error: " + JSON.stringify(err));
-            }
-        });
-    }
-
-    function updatePost() {
-        $.ajax({
-            url: "/api/post/update",
+            url: "/api/board/detail",
             method: "GET",
             data: {
-                id: $("#input_id").val(),
-                title: $("#input_title").val(),
-                content: $("#input_content").val(),
-                author: $("#input_author").val()
+                id : $("#input_id").val()
             },
-            success: function (data) {
-                alert("Updated: " + JSON.stringify(data));
+            success: (data, status, xhr)=>{
+                //alert(JSON.stringify(data));
+                $("#input_title").val(data.title);
+                $("#input_content").val(data["content"]);
+                $("#input_author").val(data["author"]);
             },
-            error: function (err) {
-                alert("Error: " + JSON.stringify(err));
-            }
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
         });
     }
-
-    function deletePost() {
+    function update_board(){
         $.ajax({
-            url: "/api/post/delete",
+            url: "/api/board/update",
             method: "GET",
-            data: { id: $("#input_id").val() },
-            success: function (data) {
-                alert("Deleted: " + JSON.stringify(data));
+            data: {
+                id : $("#input_id").val()
+                , title : $("#input_title").val()
+                , content : $("#input_content").val()
+                , author : $("#input_author").val()
             },
-            error: function (err) {
-                alert("Error: " + JSON.stringify(err));
-            }
+            success: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+        });
+    }
+    function delete_board(){
+        $.ajax({
+            url: "/api/board/delete",
+            method: "GET",
+            data: {
+                id : $("#input_id").val()
+            },
+            success: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
+            error: (data, status, xhr)=>{
+                alert(JSON.stringify(data));
+            },
         });
     }
 </script>
-
 </body>
 </html>

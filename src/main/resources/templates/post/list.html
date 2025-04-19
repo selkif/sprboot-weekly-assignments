@@ -2,29 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Post List</title>
+    <title>board list</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>
 <body>
 
-<h2>Post List</h2>
-
-<ul id="post_list"></ul>
+Board List
+<br/>
 
 <script>
     $.ajax({
-        url: "/api/post/list",
+        url: "/api/board/list",
         method: "GET",
-        success: function (data) {
-            data.forEach(function (post) {
-                $("#post_list").append(
-                    `<li>ID: ${post.id} | Title: ${post.title} | Author: ${post.author}</li>`
-                );
-            });
+        data: {},
+        success: (data, status, xhr)=>{
+            alert(JSON.stringify(data));
         },
-        error: function (err) {
-            alert("Error: " + JSON.stringify(err));
-        }
+        error: (data, status, xhr)=>{
+            alert(JSON.stringify(data));
+        },
     });
 </script>
 

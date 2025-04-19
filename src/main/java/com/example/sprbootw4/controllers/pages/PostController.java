@@ -1,4 +1,4 @@
-package com.example.sprbootw4.controllers;
+package com.example.sprbootw4.controllers.pages;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

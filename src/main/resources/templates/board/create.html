@@ -23,21 +23,23 @@ author :
   function create_board(){
     $.ajax({
       url: "/api/board/create",
-      method: "GET",
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded",
       data: {
-        title : $("#input_title").val()
-        , content : $("#input_content").val()
-        , author : $("#input_author").val()
+        title : $("#input_title").val(),
+        content : $("#input_content").val(),
+        author : $("#input_author").val()
       },
-      success: (data, status, xhr)=>{
-        alert(JSON.stringify(data));
+      success: function(data){
+        alert("Success: " + JSON.stringify(data));
       },
-      error: (data, status, xhr)=>{
-        alert(JSON.stringify(data));
-      },
+      error: function(xhr){
+        alert("Error: " + xhr.status + " - " + xhr.responseText);
+      }
     });
   }
 </script>
+
 
 </body>
 </html>
